@@ -5,11 +5,27 @@
     <parent>
         <artifactId>shop-order</artifactId>
         <groupId>com.shop.order</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
+    <version>1.0.0</version>
     <artifactId>order-service</artifactId>
+    <packaging>jar</packaging>
 
-
+    <properties>
+        <order.dubbo.api>1.0.0</order.dubbo.api>
+        <shop-cache>1.0.0</shop-cache>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.shop.order</groupId>
+            <artifactId>order-dubbo-api</artifactId>
+            <version>${order.dubbo.api}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.shop.nami</groupId>
+            <artifactId>shop-cache</artifactId>
+            <version>${shop-cache}</version>
+        </dependency>
+    </dependencies>
 </project>

@@ -16,8 +16,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @ComponentScan(basePackages = {"com.shop.cache.*","com.shop.order"})
 @EnableDubbo(scanBasePackages  = "com.shop.order.service.impl")
 @EnableAsync
-public class ShopOrderApplication {
+public class ShopOrderAdminApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ShopOrderApplication.class, args);
+        SpringApplication.run(ShopOrderAdminApplication.class, args);
     }
 }

@@ -49,6 +49,6 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
     public List<Address> queryByYgwId(String ygwId) {
         return baseMapper.selectList(new QueryWrapper<Address>()
                 .eq("ygw_id", ygwId)
-                .ne("status", StatusEnum.YES.getValue()));
+                .eq("status", StatusEnum.YES.getValue()));
     }
 }

@@ -39,7 +39,7 @@ public class AddressController {
     @PostMapping("/")
     public Result save(@RequestHeader(name = HeaderConstants.YGWID) String ygwId, @RequestBody Address address) {
         LOGGER.info("Address install bean:[{}]", JSON.toJSONString(address));
-        if (ygwId.equals(address.getYgwId())) {
+        if (!ygwId.equals(address.getYgwId())) {
             return Result.result(SHOP_43002_VERIFY_FAIL);
         }
         return addressService.save(address) ? Result.success() : Result.result(SHOP_4005_INSTALL_FAIL);
@@ -72,7 +72,7 @@ public class AddressController {
     @GetMapping("/{ygwId}")
     public Result queryByUserId(@RequestHeader(name = HeaderConstants.YGWID) String headYgwId, @PathVariable("ygwId") String ygwId) {
         LOGGER.info("Address queryByUserId headYgwId:{} ygwId:{}", headYgwId, ygwId);
-        if (headYgwId.equals(ygwId)) {
+        if (!headYgwId.equals(ygwId)) {
             return Result.result(SHOP_43002_VERIFY_FAIL);
         }
         List<Address> list = addressService.queryByYgwId(ygwId);

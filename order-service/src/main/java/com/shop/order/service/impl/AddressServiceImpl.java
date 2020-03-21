@@ -32,7 +32,7 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
         if (update < 1) {
             return false;
         }
-        return false;
+        return true;
     }
 
     @Override

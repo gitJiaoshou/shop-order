@@ -23,5 +23,27 @@
     </parent>
     <properties>
         <java.version>1.8</java.version>
+        <springCloud.version>Greenwich.SR3</springCloud.version>
+        <springCloudAlibaba.version>2.1.1.RELEASE</springCloudAlibaba.version>
     </properties>
+    <dependencyManagement>
+        <dependencies>
+            <!--springcloud使用Greenwich版本-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${springCloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--springcloudalibaba使用2.1.1-->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${springCloudAlibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

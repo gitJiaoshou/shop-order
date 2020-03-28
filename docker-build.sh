@@ -5,7 +5,7 @@ mvn clean install
 mvn clean package -Dmaven.test.skip=true -U
 ## 构建docker镜像
 docker build -t order-api:1.0.0 -f order-api/src/main/docker/Dockerfile .
-docker login --username=13730404063 registry.cn-beijing.aliyuncs.com
+#docker login --username=13730404063 registry.cn-beijing.aliyuncs.com
 #登录镜像
 docker tag $(docker images |grep "order-api" | awk '{print $3}') registry.cn-beijing.aliyuncs.com/yangkaifei/order-api:1.0.0
 docker push registry.cn-beijing.aliyuncs.com/yangkaifei/order-api:1.0.0

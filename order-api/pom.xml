@@ -11,31 +11,9 @@
 
     <artifactId>order-api</artifactId>
     <properties>
-        <springCloud.version>Greenwich.SR3</springCloud.version>
-        <springCloudAlibaba.version>2.1.1.RELEASE</springCloudAlibaba.version>
         <shopDatasource.version>1.0.0</shopDatasource.version>
         <druid.version>1.1.10</druid.version>
     </properties>
-    <dependencyManagement>
-        <dependencies>
-            <!--springcloud使用Greenwich版本-->
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${springCloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <!--springcloudalibaba使用2.1.1-->
-            <dependency>
-                <groupId>com.alibaba.cloud</groupId>
-                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>${springCloudAlibaba.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>com.shop.order</groupId>

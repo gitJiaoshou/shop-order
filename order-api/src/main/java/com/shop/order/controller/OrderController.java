@@ -2,9 +2,11 @@ package com.shop.order.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.shop.bean.order.AddOrderBean;
+import com.shop.order.service.PushMqService;
 import com.shop.utils.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,8 @@ public class OrderController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
 
+    @Autowired
+    private PushMqService pushMqService;
     /**
      * 新增订单
      * @param addOrderBean
@@ -28,7 +32,8 @@ public class OrderController {
     @PostMapping("/")
     public Result addOrder(@RequestBody AddOrderBean addOrderBean) {
         LOGGER.info("add order Post bean:[{}]", JSON.toJSONString(addOrderBean));
-
+        //TODO 在这里存一个redis的状态让客户端一直查询，类似于二维码登录
+        pushMqService.pushGoodsMsg(addOrderBean);
         return null;
     }
 }

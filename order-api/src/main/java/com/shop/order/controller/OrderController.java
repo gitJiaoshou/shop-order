@@ -2,8 +2,8 @@ package com.shop.order.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.shop.bean.order.AddOrderBean;
+import com.shop.order.kafka.service.PushMqService;
 import com.shop.order.service.OrderService;
-import com.shop.order.service.PushMqService;
 import com.shop.utils.HeaderConstants;
 import com.shop.utils.Result;
 import org.slf4j.Logger;
@@ -29,6 +29,8 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private PushMqService pushMqService;
     /**
      * 新增订单
      *
@@ -47,6 +49,7 @@ public class OrderController {
         }
         String key = String.format("%s:%s:%s", appKey, addOrderBean.getYgwId(), UUID.randomUUID().toString());
         addOrderBean.setRedisKey(key);
+        pushMqService.pushGoodsMsg(addOrderBean);
         return orderService.saveOne(appKey, addOrderBean) ? Result.success(key) : Result.result(SHOP_4005_INSTALL_FAIL);
     }
 

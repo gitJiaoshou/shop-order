@@ -13,6 +13,7 @@
     <properties>
         <shopDatasource.version>1.0.0</shopDatasource.version>
         <druid.version>1.1.10</druid.version>
+        <order.kafka.version>1.0.0</order.kafka.version>
     </properties>
     <dependencies>
         <dependency>
@@ -44,6 +45,12 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+        <!--引入kafka-->
+        <dependency>
+            <groupId>com.shop.order</groupId>
+            <artifactId>order-kafka</artifactId>
+            <version>${order.kafka.version}</version>
         </dependency>
     </dependencies>
     <build>

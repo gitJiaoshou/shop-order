@@ -1,4 +1,4 @@
-package com.shop.order.service.kafka;
+package com.shop.order.kafka.service;
 
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.messaging.SubscribableChannel;

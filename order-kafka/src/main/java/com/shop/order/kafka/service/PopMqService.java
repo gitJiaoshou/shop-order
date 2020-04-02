@@ -1,6 +1,5 @@
-package com.shop.order.service;
+package com.shop.order.kafka.service;
 
-import com.shop.order.service.kafka.MySink;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.stream.annotation.EnableBinding;

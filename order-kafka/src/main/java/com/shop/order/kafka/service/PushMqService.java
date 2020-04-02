@@ -1,4 +1,4 @@
-package com.shop.order.service;
+package com.shop.order.kafka.service;
 
 /**
  * @Author YKF

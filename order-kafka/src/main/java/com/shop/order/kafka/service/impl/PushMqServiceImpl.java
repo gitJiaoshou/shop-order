@@ -1,7 +1,7 @@
-package com.shop.order.service.impl;
+package com.shop.order.kafka.service.impl;
 
-import com.shop.order.service.PushMqService;
-import com.shop.order.service.kafka.MySource;
+import com.shop.order.kafka.service.MySource;
+import com.shop.order.kafka.service.PushMqService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

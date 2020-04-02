@@ -6,13 +6,10 @@ import com.shop.cache.order.service.OrderCache;
 import com.shop.db.order.OrderMapper;
 import com.shop.entity.order.Order;
 import com.shop.order.service.OrderService;
-import com.shop.order.service.PushMqService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 /**
  * @Author YKF
@@ -24,9 +21,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     @Autowired
-    private PushMqService pushMqService;
-
-    @Autowired
     private OrderCache orderCache;
 
     @Override
@@ -34,7 +28,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
         boolean result = false;
         try {
-            pushMqService.pushGoodsMsg(addOrderBean);
             orderCache.saveOrderStatus(addOrderBean.getRedisKey(), String.valueOf(false));
             result = true;
         } catch (Exception e) {

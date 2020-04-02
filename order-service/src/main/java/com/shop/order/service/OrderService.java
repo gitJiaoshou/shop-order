@@ -1,6 +1,7 @@
 package com.shop.order.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.shop.bean.order.AddOrderBean;
 import com.shop.entity.order.Order;
 
 /**
@@ -10,5 +11,19 @@ import com.shop.entity.order.Order;
  */
 public interface OrderService extends IService<Order> {
 
+    /**
+     * 保存一条记录
+     *
+     * @param appKey
+     * @param addOrderBean
+     * @return
+     */
+    boolean saveOne(String appKey, AddOrderBean addOrderBean);
 
+    /**
+     * 检查总价是否一致
+     * @param addOrderBean
+     * @return
+     */
+    boolean equalsMoney(AddOrderBean addOrderBean);
 }

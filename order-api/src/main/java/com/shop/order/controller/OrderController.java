@@ -1,6 +1,7 @@
 package com.shop.order.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.shop.bean.order.AddOrderBean;
 import com.shop.order.kafka.service.PushMqService;
 import com.shop.order.service.OrderService;
@@ -11,8 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
-import java.util.UUID;
 
 import static com.shop.utils.ShopCode.*;
 
@@ -47,10 +46,12 @@ public class OrderController {
         if (orderService.equalsMoney(addOrderBean)) {
             return Result.result(SHOP_4000_REQUEST);
         }
-        String key = String.format("%s:%s:%s", appKey, addOrderBean.getYgwId(), UUID.randomUUID().toString());
+        String id = IdWorker.getIdStr();
+        addOrderBean.setId(id);
+        String key = String.format("%s:%s:%s", appKey, addOrderBean.getYgwId(), id);
         addOrderBean.setRedisKey(key);
         pushMqService.pushGoodsMsg(appKey, addOrderBean);
-        return orderService.saveOne(appKey, addOrderBean) ? Result.success(key) : Result.result(SHOP_4005_INSTALL_FAIL);
+        return orderService.saveOne(appKey, addOrderBean) ? Result.success(id) : Result.result(SHOP_4005_INSTALL_FAIL);
     }
 
 }

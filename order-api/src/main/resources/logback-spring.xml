@@ -3,7 +3,7 @@
     <include resource="org/springframework/boot/logging/logback/base.xml" />
     <logger name="org.springframework.web" level="INFO"/>
     <logger name="org.springboot.sample" level="TRACE" />
-
+    <logger name="org.apache.kafka.clients.NetworkClient" level="off" />
     <!-- 开发、测试环境 -->
     <springProfile name="dev">
         <logger name="org.springframework.web" level="INFO"/>

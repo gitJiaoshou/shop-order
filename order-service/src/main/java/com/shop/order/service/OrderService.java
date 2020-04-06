@@ -21,6 +21,13 @@ public interface OrderService extends IService<Order> {
     boolean saveOne(String appKey, AddOrderBean addOrderBean);
 
     /**
+     * 保存db
+     * @param order
+     * @return          主键
+     */
+    String saveOne(Order order);
+
+    /**
      * 检查总价是否一致
      * @param addOrderBean
      * @return

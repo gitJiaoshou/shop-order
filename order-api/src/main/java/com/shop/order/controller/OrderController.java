@@ -49,7 +49,7 @@ public class OrderController {
         }
         String key = String.format("%s:%s:%s", appKey, addOrderBean.getYgwId(), UUID.randomUUID().toString());
         addOrderBean.setRedisKey(key);
-        pushMqService.pushGoodsMsg(addOrderBean);
+        pushMqService.pushGoodsMsg(appKey, addOrderBean);
         return orderService.saveOne(appKey, addOrderBean) ? Result.success(key) : Result.result(SHOP_4005_INSTALL_FAIL);
     }
 

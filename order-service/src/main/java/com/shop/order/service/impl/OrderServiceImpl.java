@@ -38,12 +38,18 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
+    public String saveOne(Order order) {
+        baseMapper.insert(order);
+        return order.getId();
+    }
+
+    @Override
     public boolean equalsMoney(AddOrderBean addOrderBean) {
         boolean result = false;
         try {
             Double money = addOrderBean
                     .getOskus()
-                    .stream()
+                    .parallelStream()
                     .mapToDouble(o -> {
                         return o.getNumber() * o.getNewPrice();
                     }).sum();

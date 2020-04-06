@@ -8,7 +8,9 @@ public interface PushMqService {
 
     /**
      * 压栈
+     *
+     * @param appKey
      * @param msg
      */
-    void pushGoodsMsg(Object msg);
+    void pushGoodsMsg(String appKey, Object msg);
 }

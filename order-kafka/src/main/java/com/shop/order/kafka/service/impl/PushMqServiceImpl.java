@@ -18,15 +18,21 @@ import org.springframework.stereotype.Service;
 public class PushMqServiceImpl implements PushMqService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PushMqServiceImpl.class);
+    public static final String APP_KEY = "AppKey";
 
     @Autowired
     private MySource mySource;
-    
+
     @Override
-    public void pushGoodsMsg(Object msg) {
+    public void pushGoodsMsg(String appKey, Object msg) {
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("pushMsg =  {}", msg);
         }
-        mySource.outputGoods().send(MessageBuilder.withPayload(msg).build());
+        mySource.outputGoods()
+                .send(
+                        MessageBuilder.withPayload(msg)
+                        .setHeader(APP_KEY, appKey)
+                        .build()
+                );
     }
 }

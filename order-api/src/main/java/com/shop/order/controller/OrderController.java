@@ -43,7 +43,7 @@ public class OrderController {
             @RequestBody AddOrderBean addOrderBean) {
         LOGGER.info("add order Post bean:[{}]", JSON.toJSONString(addOrderBean));
         //统计总价
-        if (orderService.equalsMoney(addOrderBean)) {
+        if (!orderService.equalsMoney(addOrderBean)) {
             return Result.result(SHOP_4000_REQUEST);
         }
         String id = IdWorker.getIdStr();

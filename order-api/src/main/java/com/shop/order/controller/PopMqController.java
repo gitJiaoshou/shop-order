@@ -5,6 +5,7 @@ import com.shop.bean.order.AddOrderBean;
 import com.shop.entity.order.Order;
 import com.shop.order.kafka.service.MySink;
 import com.shop.order.service.OrderService;
+import com.shop.order.service.OskuService;
 import com.shop.utils.OrderEnum;
 import com.shop.utils.PayStatusEnum;
 import com.shop.utils.StatusEnum;
@@ -27,7 +28,8 @@ public class PopMqController {
 
     @Autowired
     private OrderService orderService;
-
+    @Autowired
+    private OskuService oskuService;
     /**
      * 1. 订单存库
      * @param payload
@@ -45,8 +47,9 @@ public class PopMqController {
                 .deleteStatus(StatusEnum.YES.getValue())
                 .payStatus(PayStatusEnum.BUYER.getValue())
                 .build();
-        orderService.saveOne(order);
-
+        // 保存
+        String orderId = orderService.saveOne(order);
+        oskuService.saveOskus(orderId, data.getOskus());
     }
 
 }

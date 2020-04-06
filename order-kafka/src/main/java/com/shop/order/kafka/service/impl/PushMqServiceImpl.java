@@ -21,16 +21,7 @@ public class PushMqServiceImpl implements PushMqService {
 
     @Autowired
     private MySource mySource;
-
-
-    @Override
-    public void pushOrderMsg(Object msg) {
-        if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("pushMsg =  {}", msg);
-        }
-        mySource.outputOrder().send(MessageBuilder.withPayload(msg).build());
-    }
-
+    
     @Override
     public void pushGoodsMsg(Object msg) {
         if (LOGGER.isInfoEnabled()) {

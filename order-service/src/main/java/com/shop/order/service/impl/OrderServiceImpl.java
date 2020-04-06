@@ -2,6 +2,7 @@ package com.shop.order.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shop.bean.order.AddOrderBean;
+import com.shop.bean.order.OrderRedisStatusEnum;
 import com.shop.cache.order.service.OrderCache;
 import com.shop.db.order.OrderMapper;
 import com.shop.entity.order.Order;
@@ -28,7 +29,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
         boolean result = false;
         try {
-            orderCache.saveOrderStatus(addOrderBean.getRedisKey(), String.valueOf(false));
+            orderCache.saveOrderStatus(addOrderBean.getRedisKey(), OrderRedisStatusEnum.START.getValue());
             result = true;
         } catch (Exception e) {
             LOGGER.error("save order output kafka error", e);

@@ -9,22 +9,11 @@ import org.springframework.messaging.MessageChannel;
  * @date 2020/3/29上午11:54
  */
 public interface MySource {
-    /**
-     * 订单
-     */
-    String OUTPUT_ORDER = "output_order";
 
     /**
      * 商品
      */
     String OUTPUT_GOODS = "output_goods";
-
-    /**
-     * 订单
-     * @return
-     */
-    @Output(MySource.OUTPUT_ORDER)
-    MessageChannel outputOrder();
 
     /**
      * 商品

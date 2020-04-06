@@ -10,11 +10,5 @@ public interface PushMqService {
      * 压栈
      * @param msg
      */
-    public void pushOrderMsg(Object msg);
-
-    /**
-     * 压栈
-     * @param msg
-     */
-    public void pushGoodsMsg(Object msg);
+    void pushGoodsMsg(Object msg);
 }

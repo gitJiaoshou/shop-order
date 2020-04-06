@@ -16,22 +16,10 @@ public interface MySink {
     String INPUT_ORDER = "input_order";
 
     /**
-     * 商品
-     */
-    String INPUT_GOODS = "input_goods";
-
-    /**
      * 订单
      * @return
      */
     @Input(MySink.INPUT_ORDER)
     SubscribableChannel inputOrder();
-
-    /**
-     * 商品
-     * @return
-     */
-    @Input(MySink.INPUT_GOODS)
-    SubscribableChannel inputGoods();
 
 }

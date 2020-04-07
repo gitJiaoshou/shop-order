@@ -2,6 +2,7 @@ package com.shop.order.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.shop.bean.order.AddOrderBean;
+import com.shop.bean.order.OrderRedisStatusEnum;
 import com.shop.entity.order.Order;
 
 /**
@@ -15,10 +16,12 @@ public interface OrderService extends IService<Order> {
      * 保存一条记录
      *
      * @param appKey
-     * @param addOrderBean
+     * @param ygwId
+     * @param id
+     * @param orderRedisStatusEnum
      * @return
      */
-    boolean saveOne(String appKey, AddOrderBean addOrderBean);
+    boolean saveCache(String appKey, String ygwId, String id, OrderRedisStatusEnum orderRedisStatusEnum);
 
     /**
      * 保存db

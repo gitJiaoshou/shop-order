@@ -3,6 +3,7 @@ package com.shop.order.controller;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.shop.bean.order.AddOrderBean;
+import com.shop.bean.order.OrderRedisStatusEnum;
 import com.shop.order.kafka.service.PushMqService;
 import com.shop.order.service.OrderService;
 import com.shop.utils.HeaderConstants;
@@ -51,7 +52,7 @@ public class OrderController {
         String key = String.format("%s:%s:%s", appKey, addOrderBean.getYgwId(), id);
         addOrderBean.setRedisKey(key);
         pushMqService.pushGoodsMsg(appKey, addOrderBean);
-        return orderService.saveOne(appKey, addOrderBean) ? Result.success(id) : Result.result(SHOP_4005_INSTALL_FAIL);
+        return orderService.saveCache(appKey, addOrderBean.getYgwId(), id, OrderRedisStatusEnum.START) ? Result.success(id) : Result.result(SHOP_4005_INSTALL_FAIL);
     }
 
 }

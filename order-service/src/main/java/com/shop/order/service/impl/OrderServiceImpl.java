@@ -25,11 +25,11 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private OrderCache orderCache;
 
     @Override
-    public boolean saveOne(String appKey, AddOrderBean addOrderBean) {
-
+    public boolean saveCache(String appKey, String ygwId, String id, OrderRedisStatusEnum orderRedisStatusEnum) {
+        String key = String.format("%s:%s:%s", appKey, ygwId, id);
         boolean result = false;
         try {
-            orderCache.saveOrderStatus(addOrderBean.getRedisKey(), OrderRedisStatusEnum.START.getValue());
+            orderCache.saveOrderStatus(key, orderRedisStatusEnum.getValue());
             result = true;
         } catch (Exception e) {
             LOGGER.error("save order output kafka error", e);

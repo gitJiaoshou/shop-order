@@ -2,6 +2,7 @@ package com.shop.order.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.shop.bean.order.AddOrderBean;
+import com.shop.bean.order.OrderRedisStatusEnum;
 import com.shop.entity.order.Order;
 import com.shop.order.kafka.service.MySink;
 import com.shop.order.service.OrderService;
@@ -30,6 +31,7 @@ public class PopMqController {
     private OrderService orderService;
     @Autowired
     private OskuService oskuService;
+
     /**
      * 1. 订单存库
      * @param payload
@@ -50,6 +52,7 @@ public class PopMqController {
         // 保存
         String orderId = orderService.saveOne(order);
         oskuService.saveOskus(orderId, data.getOskus());
+        orderService.saveCache(data.getAppKey(), data.getYgwId(), data.getId(), OrderRedisStatusEnum.START);
     }
 
 }

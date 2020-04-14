@@ -42,6 +42,7 @@ public class PopMqController {
         AddOrderBean data = JSON.parseObject(payload, AddOrderBean.class);
         Order order = Order
                 .builder()
+                .id(data.getId())
                 .ygwId(data.getYgwId())
                 .totalPrice(Float.valueOf(data.getTotalPrice().toString()))
                 .payType(data.getPayType())
@@ -49,9 +50,10 @@ public class PopMqController {
                 .deleteStatus(StatusEnum.YES.getValue())
                 .payStatus(PayStatusEnum.BUYER.getValue())
                 .build();
+        LOGGER.info("receive to Order is :{}", JSON.toJSONString(order));
         // 保存
-        String orderId = orderService.saveOne(order);
-        oskuService.saveOskus(orderId, data.getOskus());
+        orderService.saveOneBySql(data.getAppKey(), order);
+        oskuService.saveOskusBySql(data.getAppKey(), data.getId(), data.getOskus());
         orderService.saveCache(data.getAppKey(), data.getYgwId(), data.getId(), OrderRedisStatusEnum.START);
     }
 

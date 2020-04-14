@@ -15,10 +15,12 @@ public interface OskuService extends IService<Osku> {
 
     /**
      * 详细订单存库
+     *
+     * @param appKey
      * @param orderId
      * @param oskus
      * @return
      */
-    boolean saveOskus(String orderId, List<AddOrderBean.Osku> oskus);
+    boolean saveOskusBySql(String appKey, String orderId, List<AddOrderBean.Osku> oskus);
 
 }

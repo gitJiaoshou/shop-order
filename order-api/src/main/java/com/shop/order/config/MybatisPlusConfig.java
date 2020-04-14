@@ -42,8 +42,19 @@ public class MybatisPlusConfig {
                         put(tableTitle,(metaObject, sql, tableName) ->{
                             // metaObject 可以获取传入参数，这里实现你自己的动态规则
                             // 因为metaObject太麻烦，这里根据自身的业务需求直接从头信息里面获取
-                            String appKey = request.getHeader(HeaderConstants.APP_KEY);
-                            return String.format("%s_%s", tableName, appKey);
+                            String appKey = null;
+                            try {
+                                if (request == null) {
+                                    return tableName;
+                                }
+                                appKey = request.getHeader(HeaderConstants.APP_KEY);
+                                if (appKey != null && !appKey.isEmpty()) {
+                                    return String.format("%s_%s", tableName, appKey);
+                                }
+                            } catch (Exception e) {
+                                System.out.println("没有http");
+                            }
+                            return tableName;
                         });
                     }
             );

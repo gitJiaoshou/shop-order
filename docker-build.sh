@@ -10,7 +10,7 @@ docker build -t order-api:1.0.0 -f order-api/src/main/docker/Dockerfile .
 docker tag $(docker images |grep "order-api" | awk '{print $3}') registry.cn-beijing.aliyuncs.com/yangkaifei/order-api:1.0.0
 docker push registry.cn-beijing.aliyuncs.com/yangkaifei/order-api:1.0.0
 
-echo "====================goods-c================================"
+echo "====================order admin ================================"
 docker rmi registry.cn-beijing.aliyuncs.com/yangkaifei/order-admin:1.0.0
 docker rmi order-admin:1.0.0
 #mvn clean install

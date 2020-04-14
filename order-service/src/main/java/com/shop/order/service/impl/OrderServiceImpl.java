@@ -1,5 +1,6 @@
 package com.shop.order.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shop.bean.order.AddOrderBean;
 import com.shop.bean.order.OrderRedisStatusEnum;
@@ -38,9 +39,14 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public String saveOne(Order order) {
-        baseMapper.insert(order);
-        return order.getId();
+    public boolean saveOneBySql(String appKey, Order order) {
+        LOGGER.info("saveOneBySql saveOneBySql saveOneBySql appKey:{}", appKey);
+        LOGGER.info("saveOneBySql saveOneBySql saveOneBySql order:{}", JSON.toJSONString(order));
+        int insert = baseMapper.saveOneBySql(appKey, order);
+        if (insert > 0) {
+            return true;
+        }
+        return false;
     }
 
     @Override

@@ -25,10 +25,12 @@ public interface OrderService extends IService<Order> {
 
     /**
      * 保存db
+     *
+     * @param appKey
      * @param order
-     * @return          主键
+     * @return 主键
      */
-    String saveOne(Order order);
+    boolean saveOneBySql(String appKey, Order order);
 
     /**
      * 检查总价是否一致

@@ -1,5 +1,6 @@
 package com.shop.order.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shop.bean.order.AddOrderBean;
 import com.shop.db.order.OskuMapper;
@@ -26,11 +27,13 @@ public class OskuServiceImpl extends ServiceImpl<OskuMapper, Osku> implements Os
 
     @Override
     @Transactional
-    public boolean saveOskus(String orderId, List<AddOrderBean.Osku> oskus) {
+    public boolean saveOskusBySql(String appKey, String orderId, List<AddOrderBean.Osku> oskus) {
         try {
+
             oskus.forEach(t ->
-                    baseMapper.insert(Osku
+                    baseMapper.saveOskusBySql(appKey, Osku
                             .builder()
+                            .id(IdWorker.getIdStr())
                             .order(orderId)
                             .sku(t.getSku())
                             .newPrice(Float.valueOf(String.valueOf(t.getNewPrice())))

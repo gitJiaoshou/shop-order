@@ -54,7 +54,7 @@ public class PopMqController {
         // 保存
         orderService.saveOneBySql(data.getAppKey(), order);
         oskuService.saveOskusBySql(data.getAppKey(), data.getId(), data.getOskus());
-        orderService.saveCache(data.getAppKey(), data.getYgwId(), data.getId(), OrderRedisStatusEnum.START);
+        orderService.saveCache(data.getAppKey(), data.getYgwId(), data.getId(), OrderRedisStatusEnum.WAIT_PAY);
     }
 
 }

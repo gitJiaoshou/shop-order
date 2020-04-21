@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.shop.bean.order.AddOrderBean;
 import com.shop.bean.order.OrderRedisStatusEnum;
+import com.shop.cache.order.service.OrderCache;
 import com.shop.order.kafka.service.PushMqService;
 import com.shop.order.service.OrderService;
 import com.shop.utils.HeaderConstants;
@@ -11,6 +12,8 @@ import com.shop.utils.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -31,6 +34,9 @@ public class OrderController {
 
     @Autowired
     private PushMqService pushMqService;
+
+    @Autowired
+    private OrderCache orderCache;
     /**
      * 新增订单
      *
@@ -55,4 +61,13 @@ public class OrderController {
         return orderService.saveCache(appKey, addOrderBean.getYgwId(), id, OrderRedisStatusEnum.START) ? Result.success(id) : Result.result(SHOP_4005_INSTALL_FAIL);
     }
 
+    @GetMapping("/{order}")
+    public Result queryOrderStatus(@PathVariable("order") String order) {
+
+        String value = orderCache.getOrderStatus(order);
+        if (StringUtils.isEmpty(value)) {
+            return Result.result(SHOP_4004_NOTFOUND);
+        }
+        return Result.success(value);
+    }
 }

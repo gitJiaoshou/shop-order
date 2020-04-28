@@ -27,7 +27,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Override
     public boolean saveCache(String appKey, String ygwId, String id, OrderRedisStatusEnum orderRedisStatusEnum) {
-        String key = String.format("%s:%s:%s", appKey, ygwId, id);
+        String key = String.format("%s:%s", appKey, id);
         boolean result = false;
         try {
             orderCache.saveOrderStatus(key, orderRedisStatusEnum.getValue());
@@ -53,13 +53,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     public boolean equalsMoney(AddOrderBean addOrderBean) {
         boolean result = false;
         try {
-            Double money = addOrderBean
-                    .getOskus()
-                    .parallelStream()
-                    .mapToDouble(o -> {
-                        return o.getNumber() * o.getNewPrice();
-                    }).sum();
-
+            Float money = 0F;
+            for (AddOrderBean.Osku oskus : addOrderBean.getOskus()) {
+                money += oskus.getNewPrice() * oskus.getNumber();
+            }
             result = money.equals(addOrderBean.getTotalPrice());
         } catch (Exception e) {
             LOGGER.error("equalsMoney error ", e);

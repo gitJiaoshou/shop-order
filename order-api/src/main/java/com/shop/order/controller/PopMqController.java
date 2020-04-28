@@ -44,7 +44,7 @@ public class PopMqController {
                 .builder()
                 .id(data.getId())
                 .ygwId(data.getYgwId())
-                .totalPrice(Float.valueOf(data.getTotalPrice().toString()))
+                .totalPrice(data.getTotalPrice())
                 .payType(data.getPayType())
                 .status(OrderEnum.UNPAID.getValue())
                 .deleteStatus(StatusEnum.YES.getValue())

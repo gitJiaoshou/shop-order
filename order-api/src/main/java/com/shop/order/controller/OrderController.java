@@ -55,16 +55,22 @@ public class OrderController {
         }
         String id = IdWorker.getIdStr();
         addOrderBean.setId(id);
-        String key = String.format("%s:%s:%s", appKey, addOrderBean.getYgwId(), id);
+        String key = String.format("%s:%s", appKey, id);
         addOrderBean.setRedisKey(key);
         pushMqService.pushGoodsMsg(appKey, addOrderBean);
-        return orderService.saveCache(appKey, addOrderBean.getYgwId(), id, OrderRedisStatusEnum.START) ? Result.success(id) : Result.result(SHOP_4005_INSTALL_FAIL);
+        orderService.saveCache(appKey, addOrderBean.getYgwId(), id, OrderRedisStatusEnum.START);
+        return Result.success(id);
     }
 
-    @GetMapping("/{order}")
-    public Result queryOrderStatus(@PathVariable("order") String order) {
-
-        String value = orderCache.getOrderStatus(order);
+    @GetMapping("/{orderId}")
+    public Result queryOrderStatus(
+            @RequestHeader(value = HeaderConstants.APP_KEY) String appKey,
+            @PathVariable("orderId") String orderId) {
+        LOGGER.info("queryOrderStatus key is: orderId {}", orderId);
+        LOGGER.info("queryOrderStatus key is: appKey {}", appKey);
+        String key = String.format("%s:%s", appKey, orderId);
+        LOGGER.info("queryOrderStatus key is:{}", key);
+        String value = orderCache.getOrderStatus(key);
         if (StringUtils.isEmpty(value)) {
             return Result.result(SHOP_4004_NOTFOUND);
         }

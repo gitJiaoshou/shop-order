@@ -84,12 +84,14 @@ public class OrderController {
      * 支付成功
      * @return
      */
-    @GetMapping("paySuccess/{orderId}")
-    public void paySuccess(@PathVariable("orderId") String orderId) {
+    @GetMapping("/pay/{orderId}")
+    public Result paySuccess(@PathVariable("orderId") String orderId) {
+        LOGGER.info("paySuccess orderId:{}", orderId);
         Order order = new Order();
         order.setId(orderId);
         order.setStatus(OrderEnum.PAID.getValue());
         order.setPayStatus(PayStatusEnum.SUCCESS.getValue());
         orderService.updateById(order);
+        return Result.success();
     }
 }

@@ -5,14 +5,16 @@ import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.shop.bean.order.AddOrderBean;
 import com.shop.bean.order.OrderRedisStatusEnum;
 import com.shop.cache.order.service.OrderCache;
+import com.shop.entity.order.Order;
 import com.shop.order.kafka.service.PushMqService;
 import com.shop.order.service.OrderService;
 import com.shop.utils.HeaderConstants;
+import com.shop.utils.OrderEnum;
+import com.shop.utils.PayStatusEnum;
 import com.shop.utils.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +39,7 @@ public class OrderController {
 
     @Autowired
     private OrderCache orderCache;
+
     /**
      * 新增订单
      *
@@ -75,5 +78,18 @@ public class OrderController {
             return Result.result(SHOP_4004_NOTFOUND);
         }
         return Result.success(value);
+    }
+
+    /**
+     * 支付成功
+     * @return
+     */
+    @GetMapping("paySuccess/{orderId}")
+    public void paySuccess(@PathVariable("orderId") String orderId) {
+        Order order = new Order();
+        order.setId(orderId);
+        order.setStatus(OrderEnum.PAID.getValue());
+        order.setPayStatus(PayStatusEnum.SUCCESS.getValue());
+        orderService.updateById(order);
     }
 }

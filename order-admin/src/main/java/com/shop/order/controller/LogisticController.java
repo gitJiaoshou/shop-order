@@ -2,9 +2,13 @@ package com.shop.order.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.shop.entity.order.Logistic;
+import com.shop.entity.order.Order;
 import com.shop.order.service.LogisticService;
+import com.shop.order.service.OrderService;
 import com.shop.utils.LogisticEnum;
+import com.shop.utils.OrderEnum;
 import com.shop.utils.Result;
+import com.sun.org.apache.xpath.internal.operations.Or;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +27,8 @@ public class LogisticController {
 
     @Autowired
     private LogisticService logisticService;
-
+    @Autowired
+    private OrderService orderService;
     /**
      * 保存订单
      * @param logistic
@@ -33,7 +38,14 @@ public class LogisticController {
     public Result saveOne(@RequestBody Logistic logistic) {
         LOGGER.info("logistic install bean:[{}]", JSON.toJSONString(logistic));
         logistic.setStatus(LogisticEnum.NOTHING.getValue());
-        return logisticService.save(logistic) ? Result.success() : Result.result(SHOP_4005_INSTALL_FAIL);
+        boolean result = logisticService.save(logistic);
+        if (result) {
+            Order order = new Order();
+            order.setId(logistic.getOrders());
+            order.setStatus(OrderEnum.SEND.getValue());
+            orderService.updateById(order);
+        }
+        return result ? Result.success() : Result.result(SHOP_4005_INSTALL_FAIL);
     }
 
 }

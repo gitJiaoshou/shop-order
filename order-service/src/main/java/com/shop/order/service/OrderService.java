@@ -5,6 +5,8 @@ import com.shop.bean.order.AddOrderBean;
 import com.shop.bean.order.OrderRedisStatusEnum;
 import com.shop.entity.order.Order;
 
+import java.util.List;
+
 /**
  * 订单
  * @Author YKF
@@ -12,6 +14,12 @@ import com.shop.entity.order.Order;
  */
 public interface OrderService extends IService<Order> {
 
+    /**
+     * 根据状态查询
+     * @param status
+     * @return
+     */
+    List<Order> queryByStatus(Integer status,Integer payStatus);
     /**
      * 保存一条记录
      *

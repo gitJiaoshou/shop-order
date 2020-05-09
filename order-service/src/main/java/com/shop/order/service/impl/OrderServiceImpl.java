@@ -1,6 +1,7 @@
 package com.shop.order.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shop.bean.order.AddOrderBean;
 import com.shop.bean.order.OrderRedisStatusEnum;
@@ -8,10 +9,13 @@ import com.shop.cache.order.service.OrderCache;
 import com.shop.db.order.OrderMapper;
 import com.shop.entity.order.Order;
 import com.shop.order.service.OrderService;
+import com.shop.utils.StatusEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @Author YKF
@@ -24,6 +28,15 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Autowired
     private OrderCache orderCache;
+
+    @Override
+    public List<Order> queryByStatus(Integer status, Integer payStatus) {
+        List<Order> list = baseMapper.selectList(new QueryWrapper<Order>()
+                .ne("delete_status", StatusEnum.Del.getValue())
+                .eq("pay_status", payStatus)
+                .eq("status", status));
+        return list;
+    }
 
     @Override
     public boolean saveCache(String appKey, String ygwId, String id, OrderRedisStatusEnum orderRedisStatusEnum) {

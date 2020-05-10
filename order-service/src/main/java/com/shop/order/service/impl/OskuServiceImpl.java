@@ -1,11 +1,14 @@
 package com.shop.order.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shop.bean.order.AddOrderBean;
 import com.shop.db.order.OskuMapper;
+import com.shop.entity.order.Order;
 import com.shop.entity.order.Osku;
 import com.shop.order.service.OskuService;
+import com.shop.utils.StatusEnum;
 import io.netty.handler.timeout.ReadTimeoutException;
 import org.omg.CORBA.portable.IndirectionException;
 import org.slf4j.Logger;
@@ -46,5 +49,12 @@ public class OskuServiceImpl extends ServiceImpl<OskuMapper, Osku> implements Os
             throw new RuntimeException("save saveOsks error" + e.getCause());
         }
         return false;
+    }
+
+    @Override
+    public List<Osku> queryByOrder(String order) {
+        List<Osku> list = baseMapper.selectList(new QueryWrapper<Osku>()
+                .ne("order", order));
+        return list;
     }
 }

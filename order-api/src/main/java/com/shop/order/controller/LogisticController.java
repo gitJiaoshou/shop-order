@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import static com.shop.utils.ShopCode.SHOP_4005_INSTALL_FAIL;
+import static com.shop.utils.ShopCode.SHOP_4004_NOTFOUND;
 
 @RestController
 @RequestMapping("/shop_order_api/logistic/")
@@ -30,7 +30,7 @@ public class LogisticController {
         LOGGER.info("queryByOrder ", order);
         Logistic logistic = logisticService.getOne(new QueryWrapper<Logistic>()
                 .eq("orders", order));
-        return logistic != null ? Result.success(logistic) : Result.result(SHOP_4005_INSTALL_FAIL);
+        return logistic != null ? Result.success(logistic) : Result.result(SHOP_4004_NOTFOUND);
     }
 
 }

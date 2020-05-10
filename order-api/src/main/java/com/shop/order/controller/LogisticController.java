@@ -1,14 +1,9 @@
 package com.shop.order.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.shop.entity.order.Logistic;
-import com.shop.entity.order.Order;
 import com.shop.order.service.LogisticService;
-import com.shop.utils.LogisticEnum;
-import com.shop.utils.OrderEnum;
 import com.shop.utils.Result;
-import com.shop.utils.StatusEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

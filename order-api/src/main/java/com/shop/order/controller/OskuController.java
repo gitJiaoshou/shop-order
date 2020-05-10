@@ -33,8 +33,8 @@ public class OskuController {
      * @param orderId
      * @return
      */
-    @GetMapping("/{order}")
-    public Result queryById(@PathVariable("order") String orderId) {
+    @GetMapping("/{orderId}")
+    public Result queryById(@PathVariable("orderId") String orderId) {
         List<Osku> list = oskuService.queryByOrder(orderId);
         return list == null || list.size() <= 0 ? Result.result(SHOP_4004_NOTFOUND) : Result.success(list);
     }

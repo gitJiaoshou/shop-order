@@ -37,7 +37,7 @@ public class OskuServiceImpl extends ServiceImpl<OskuMapper, Osku> implements Os
                     baseMapper.saveOskusBySql(appKey, Osku
                             .builder()
                             .id(IdWorker.getIdStr())
-                            .order(orderId)
+                            .orderId(orderId)
                             .sku(t.getSku())
                             .newPrice(Float.valueOf(String.valueOf(t.getNewPrice())))
                             .price(Float.valueOf(String.valueOf(t.getPrice())))
@@ -54,7 +54,7 @@ public class OskuServiceImpl extends ServiceImpl<OskuMapper, Osku> implements Os
     @Override
     public List<Osku> queryByOrder(String order) {
         List<Osku> list = baseMapper.selectList(new QueryWrapper<Osku>()
-                .ne("order", order));
+                .eq("order_id", order));
         return list;
     }
 }

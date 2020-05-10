@@ -88,6 +88,7 @@ public class OrderController {
      * @return
      */
     @GetMapping("/pay/{orderId}")
+    @Deprecated
     public Result paySuccess(@PathVariable("orderId") String orderId) {
         LOGGER.info("paySuccess orderId:{}", orderId);
         Order order = new Order();
@@ -99,7 +100,25 @@ public class OrderController {
     }
 
     /**
-     * 查询个人快的
+     * 修改订单状态
+     * @param orderId
+     * @param status
+     * @return
+     */
+    @PutMapping("/{orderId}/{status}")
+    public Result updateStatus(@PathVariable("orderId") String orderId,@PathVariable("status") Integer status) {
+        LOGGER.info("updateStatus orderId:{} status:{}", orderId, status);
+        Order order = new Order();
+        order.setId(orderId);
+        order.setStatus(status);
+        order.setPayStatus(PayStatusEnum.SUCCESS.getValue());
+        boolean result = orderService.updateById(order);
+        return result ? Result.success() : Result.result(SHOP_4007_UPDATE_FAIL);
+    }
+
+
+    /**
+     * 查询个人快递
      * @param ygwId
      * @param status
      * @return

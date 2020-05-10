@@ -20,6 +20,14 @@ public interface OrderService extends IService<Order> {
      * @return
      */
     List<Order> queryByStatus(Integer status,Integer payStatus);
+
+    /**
+     * 根据状态和用户Id查询
+     * @param ygwId
+     * @param status
+     * @return
+     */
+    List<Order> queryByStatusAndYgwId(String ygwId, Integer status);
     /**
      * 保存一条记录
      *

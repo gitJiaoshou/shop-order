@@ -8,7 +8,6 @@ import com.shop.order.service.OrderService;
 import com.shop.utils.LogisticEnum;
 import com.shop.utils.OrderEnum;
 import com.shop.utils.Result;
-import com.sun.org.apache.xpath.internal.operations.Or;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

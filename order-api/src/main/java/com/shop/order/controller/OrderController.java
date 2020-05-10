@@ -19,6 +19,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.List;
+
 import static com.shop.utils.ShopCode.*;
 
 /**
@@ -82,6 +84,7 @@ public class OrderController {
 
     /**
      * 支付成功
+     *
      * @return
      */
     @GetMapping("/pay/{orderId}")
@@ -93,5 +96,18 @@ public class OrderController {
         order.setPayStatus(PayStatusEnum.SUCCESS.getValue());
         orderService.updateById(order);
         return Result.success();
+    }
+
+    /**
+     * 查询个人快的
+     * @param ygwId
+     * @param status
+     * @return
+     */
+    @GetMapping("/{ygwId}/{status}")
+    public Result queryByStatus(@PathVariable("ygwId") String ygwId,@PathVariable("status") Integer status) {
+        LOGGER.info("queryByStatus ygwId:{} status:{}", ygwId, status);
+        List<Order> list = orderService.queryByStatusAndYgwId(ygwId, status);
+        return list == null || list.size() <= 0 ? Result.result(SHOP_4004_NOTFOUND) : Result.success(list);
     }
 }

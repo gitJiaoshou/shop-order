@@ -39,6 +39,15 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
+    public List<Order> queryByStatusAndYgwId(String ygwId, Integer status) {
+        List<Order> list = baseMapper.selectList(new QueryWrapper<Order>()
+                .ne("delete_status", StatusEnum.Del.getValue())
+                .eq("ygw_id", ygwId)
+                .eq("status", status));
+        return list;
+    }
+
+    @Override
     public boolean saveCache(String appKey, String ygwId, String id, OrderRedisStatusEnum orderRedisStatusEnum) {
         String key = String.format("%s:%s", appKey, id);
         boolean result = false;

@@ -29,7 +29,7 @@ public class LogisticController {
     public Result queryByOrder(@PathVariable("order") String  order) {
         LOGGER.info("queryByOrder ", order);
         Logistic logistic = logisticService.getOne(new QueryWrapper<Logistic>()
-                .ne("orders", order));
+                .eq("orders", order));
         return logistic != null ? Result.success(logistic) : Result.result(SHOP_4005_INSTALL_FAIL);
     }
 
